@@ -2,10 +2,20 @@
 
 - **Author:** Fantine Huot
 
-## Requirements
+## Getting started
+
+### Update the submodules
+After cloning the repository, make sure to run the following commands to
+update the submodules.
+
+```
+git submodule init
+git submodule update
+```
+
+### Requirements
 
 - TensorFlow
-
 ## Folder structure
 
 - **bin:** Scripts to run jobs.
