@@ -2,7 +2,7 @@
 
 export MODULE_ARGS=" \
   --model=CNN1DExample \
-  --height=400 \
+  --height=512 \
   --channels=3 \
   --num_epochs=10 \
 "
