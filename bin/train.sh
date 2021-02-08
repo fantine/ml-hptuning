@@ -30,7 +30,7 @@ else
   model_config = ${$model_config:16}
 fi
 if [ ! -f "$config_file" ]; then
-  echo "Config file not found: $config_file";
+  echo "ML model config file not found: $config_file";
   exit 1;
 fi
 
