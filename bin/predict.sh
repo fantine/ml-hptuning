@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Run ML model evaluation
+# Run ML model prediction
 #
-# e.g. bin/evaluate.sh model_config dataset job_id label
+# e.g. bin/predict.sh model_config dataset label
 #
 # @param {model_config} Name of ML model configuration to use.
 #            This should correspond to a configuration file named as follows:
 #            config/${model_config}.sh.
 # @param {dataset} Dataset identifier.
-#            Check the variable `eval_file` to make sure that this maps to the
+#            Check the variable `test_file` to make sure that this maps to the
 #            correct data.
 # @param {job_id} Job ID of the ML model to evaluate.
 #            Check the variable `ckpt` to make sure that this maps to the 
@@ -30,7 +30,7 @@ fi
 
 # Set datapaths
 . "config/datapath.sh"
-eval_file="${DATAPATH}/tfrecords/${dataset}/test-*.tfrecord.gz"
+test_file="${DATAPATH}/${dataset}/*"
 ckpt="${DATAPATH}/models/${job_id}/ckpt"
 
 # Check the ML model config file
@@ -45,17 +45,17 @@ fi
 
 # Define the job name
 now=$(date +%Y%m%d_%H%M%S)
-job_name=evaluate_${now}_${model_config}_${dataset}_${label}
+job_name=predict_${now}_${model_config}_${dataset}_${label}
 log_file="log/${job_name}.log"
 
 # Set package and module name
 package_path=ml_framework/
-module_name=ml_framework.evaluate
+module_name=ml_framework.predict
 
 # Run the job
-echo 'Running ML evaluation.'
+echo 'Running ML prediction.'
 echo "Logging to file: $log_file"
 python -m $module_name \
 --job_dir=$ckpt \
 $MODULE_ARGS \
---eval_file=$eval_file 2>&1 | tee $log_file
+--test_file=$test_file 2>&1 | tee $log_file
